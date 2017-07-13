@@ -1,0 +1,158 @@
+[
+    {
+        "model": "ads.customer",
+        "pk": 1,
+        "fields": {
+            "name": "APPLE"
+        }
+    },
+    {
+        "model": "ads.customer",
+        "pk": 2,
+        "fields": {
+            "name": "FORD"
+        }
+    },
+    {
+        "model": "ads.customer",
+        "pk": 3,
+        "fields": {
+            "name": "NIKE"
+        }
+    },
+    {
+        "model": "ads.customer",
+        "pk": 4,
+        "fields": {
+            "name": "UNILEVER"
+        }
+    },
+    {
+        "model": "ads.customer",
+        "pk": 5,
+        "fields": {
+            "name": "Moe"
+        }
+    },
+    {
+        "model": "ads.product",
+        "pk": "classic",
+        "fields": {
+            "name": "Classic Ad",
+            "price": "269.99"
+        }
+    },
+    {
+        "model": "ads.product",
+        "pk": "premium",
+        "fields": {
+            "name": "Premium Ad",
+            "price": "394.99"
+        }
+    },
+    {
+        "model": "ads.product",
+        "pk": "standout",
+        "fields": {
+            "name": "Standout Ad",
+            "price": "322.99"
+        }
+    },
+    {
+        "model": "ads.discount",
+        "pk": 1,
+        "fields": {
+            "for_every_qty_items": 3,
+            "free_items": 1,
+            "fixed_discount": null,
+            "min_qty_before_fixed_discount": null,
+            "customer": [
+                4
+            ],
+            "product": [
+                "classic"
+            ]
+        }
+    },
+    {
+        "model": "ads.discount",
+        "pk": 2,
+        "fields": {
+            "for_every_qty_items": null,
+            "free_items": null,
+            "fixed_discount": "23.00",
+            "min_qty_before_fixed_discount": null,
+            "customer": [
+                1
+            ],
+            "product": [
+                "standout"
+            ]
+        }
+    },
+    {
+        "model": "ads.discount",
+        "pk": 3,
+        "fields": {
+            "for_every_qty_items": null,
+            "free_items": null,
+            "fixed_discount": "15.00",
+            "min_qty_before_fixed_discount": 4,
+            "customer": [
+                3
+            ],
+            "product": [
+                "premium"
+            ]
+        }
+    },
+    {
+        "model": "ads.discount",
+        "pk": 4,
+        "fields": {
+            "for_every_qty_items": 5,
+            "free_items": 1,
+            "fixed_discount": null,
+            "min_qty_before_fixed_discount": null,
+            "customer": [
+                2
+            ],
+            "product": [
+                "classic"
+            ]
+        }
+    },
+    {
+        "model": "ads.discount",
+        "pk": 5,
+        "fields": {
+            "for_every_qty_items": null,
+            "free_items": null,
+            "fixed_discount": "13.00",
+            "min_qty_before_fixed_discount": null,
+            "customer": [
+                2
+            ],
+            "product": [
+                "standout"
+            ]
+        }
+    },
+    {
+        "model": "ads.discount",
+        "pk": 6,
+        "fields": {
+            "for_every_qty_items": null,
+            "free_items": null,
+            "fixed_discount": "5.00",
+            "min_qty_before_fixed_discount": 3,
+            "customer": [
+                2
+            ],
+            "product": [
+                "premium"
+            ]
+        }
+    }
+
+]
