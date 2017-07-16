@@ -42,6 +42,9 @@ class Discount(models.Model):
     customer = models.ManyToManyField(Customer)
     product = models.ManyToManyField(Product)
 
+    def __str__(self):
+        return self.id
+
 
 class PricingRules:
     def get_discount(self, customer, product):
@@ -58,10 +61,8 @@ class PricingRules:
         return False
 
     def check_fixed_discount_with_min_qty(self, fixed_discount, min_qty_before_fixed_discount):
-        if PricingRules.check_fixed_discount(self, fixed_discount, min_qty_before_fixed_discount):
-            if min_qty_before_fixed_discount is not None:
-                return True
-            return False
+        if min_qty_before_fixed_discount is not None:
+            return True
         return False
 
     def calculate_fixed_discount(self, price, fixed_discount):
@@ -72,22 +73,14 @@ class PricingRules:
                                               fixed_discount,
                                               min_qty_before_fixed_discount,
                                               price):
-        
-        # if min_qty_counter == min_qty_before_fixed_discount:
-        #     print("check 1, total_price = {}".format(total_price))
-        #     total_price += price
-        #     for i in range(min_qty_counter):
-        #         total_price -= fixed_discount
-        #     print("check 1, total_price = {}".format(total_price))
-        #     return total_price
-        # if min_qty_counter > min_qty_before_fixed_discount:
-        #     sub_price = price - fixed_discount
-        #     total_price += sub_price
-        #     print("check 2, total_price = {}".format(total_price))
-        #     return total_price
-        
-        # print("No check, total_price = {}".format(total_price))
-        return price - fixed_discount
+        if min_qty_counter == min_qty_before_fixed_discount:
+            total_discount = min_qty_counter * fixed_discount
+            return price - total_discount
+
+        if min_qty_counter > min_qty_before_fixed_discount:
+            return price - fixed_discount
+
+        return price
 
     def calculate_free_items_discount(self, qty_counter, for_every_qty_items, total_price, price):
         if qty_counter % for_every_qty_items == 0:
@@ -120,20 +113,20 @@ class Order(PricingRules, models.Model):
 
                 if rules.check_free_items_discount(for_every_qty_items, free_items):
                     final_total = rules.calculate_free_items_discount(qty_counter,
-                                                                     for_every_qty_items,
-                                                                     final_total,
-                                                                     product.price)
+                                                                      for_every_qty_items,
+                                                                      final_total,
+                                                                      product.price)
                     qty_counter += 1
-                    
+
                 if rules.check_fixed_discount(fixed_discount, min_qty_before_fixed_discount):
                     final_total += rules.calculate_fixed_discount(product.price, fixed_discount)
 
                 if rules.check_fixed_discount_with_min_qty(fixed_discount,
                                                            min_qty_before_fixed_discount):
                     final_total += rules.calculate_fixed_discount_with_min_qty(min_qty_counter,
-                                                                              fixed_discount,
-                                                                              min_qty_before_fixed_discount,
-                                                                              product.price)
+                                                                               fixed_discount,
+                                                                               min_qty_before_fixed_discount,
+                                                                               product.price)
                     min_qty_counter += 1
 
             else:
